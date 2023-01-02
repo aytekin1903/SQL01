@@ -142,10 +142,72 @@ GROUP BY state
 HAVING MAX(salary)<3000;
 
 ---UNION Operator: 1- Iki sorgu(query) sonucunu birlestirmek icin kullanilir.
+--                 2- Unique (tekrarsiz) recodlari verir.
+--                 3- Tek bir sutuna cok sutun koyabiliriz
+--                 4- Tek bir sutuna cok sutun koyarken data tipleri ayni olmali, data boyutlari kapasiteyi asmamali
+--1.soru: salary degeri 3000'den yuksek olan state'leri ve salary degeri 2000'den kucuk olan name'leri tekrarsiz olarak bulunuz
 
---1.soru: 
+SELECT state AS states_names, salary FROM workers
+WHERE salary >3000
 
---1.37 dk de kaldim
+UNION
+
+SELECT name , salary FROM workers
+WHERE salary < 2000;
+
+--2.Soru: salary degeri 3000'den yuksek olan state'leri ve salary degeri 2000'den kucuk olan name'leri tekrarli olarak bulunuz
+SELECT state AS states_names, salary FROM workers
+WHERE salary >3000
+
+UNION ALL-- UNION  ile ayni isi tekrarli recordleri vererek yapar
+
+SELECT name , salary FROM workers
+WHERE salary < 2000;
+
+--INTERSECT Operator: Iki sorgu(query) sonucunun ortak(common) degerlerini verir. Unique (tekrarsiz) recodlari verir.
+
+
+--1.Soru: Salary degeri  1000'den yuksek, 2000'den az olan 'ortak' name degerlerini bulunuz
+SELECT name AS ortak_name FROM workers
+WHERE salary >1000
+
+INTERSECT 
+
+SELECT name  FROM workers
+WHERE salary <2000;
+
+--2.Soru: Salary degeri 2000'den  az olan ve company degeri IBM, APPLE ve MICROSOFT olan ortak 'name' degerlerini bulunuz
+
+SELECT name FROM workers
+WHERE salary <2000
+
+INTERSECT
+
+SELECT name FROM workers
+WHERE company IN ('IBM', 'APPLE', 'MICROSOFT');
+
+--EXCEPT Operator: Bir sorgu(Query) sonucundan baska bir sorgu sonucunu cikarmak icin kullanilir. Unique (tekrarsiz) recodlari verir.
+
+--1.Soru: Salary degeri 3000'den az olan ve GOOGLE 'da calismayan 'name' degerlerini bulunuz
+
+SELECT name FROM workers
+WHERE salary <3000
+
+EXCEPT
+
+SELECT name FROM workers
+WHERE company = 'GOOGLE';
+
+
+--JOINS  1) INNER JOIN: Ortak (common) data verir.
+--       2) RIGHT JOIN: Ikinci tablenin tum datasini verir
+--       3) LEFT JOIN : BIrinci tablenin tum datasini verir
+--       4) FULL JOIN : Iki tablenin de tum datasini verir
+--       5)SELF JOIN : Tek table uzerinde calisirken iki table varmis gibi calisilir.
+
+
+   
+
 
 
 SELECT * FROM workers;

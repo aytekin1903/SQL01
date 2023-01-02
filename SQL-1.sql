@@ -151,7 +151,7 @@ SET student_dob=(SELECT MIN(student_dob) FROM students);
 --4 record(satir) girisi yapin
 -- TABLE'YI KONSOLDA GURUNTULEYIN
 
---45 dk de kaldm
+
 
 
 
